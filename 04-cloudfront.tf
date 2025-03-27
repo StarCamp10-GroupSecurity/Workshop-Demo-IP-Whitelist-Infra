@@ -1,9 +1,9 @@
 ## Cache Policy
 resource "aws_cloudfront_cache_policy" "production" {
   name        = "custom-cache-policy"
-  default_ttl = 180
-  max_ttl     = 300
-  min_ttl     = 1
+  default_ttl = 86400
+  max_ttl     = 31536000
+  min_ttl     = 0
   parameters_in_cache_key_and_forwarded_to_origin {
     cookies_config {
       cookie_behavior = "none"
@@ -66,7 +66,7 @@ resource "aws_cloudfront_distribution" "alb_distribution" {
     cached_methods           = ["GET", "HEAD"]
     target_origin_id         = aws_alb.starcamp_alb.id
     compress                 = true
-    viewer_protocol_policy   = "redirect-to-https"
+    viewer_protocol_policy   = "allow-all"
     origin_request_policy_id = aws_cloudfront_origin_request_policy.production.id
     cache_policy_id          = aws_cloudfront_cache_policy.production.id
   }
