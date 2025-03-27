@@ -95,5 +95,7 @@ resource "aws_cloudfront_distribution" "alb_distribution" {
   viewer_certificate {
     cloudfront_default_certificate = true
   }
-  depends_on = [aws_alb.starcamp_alb]
+
+  web_acl_id = aws_wafv2_web_acl.web_acl.arn
+  depends_on = [aws_alb.starcamp_alb, aws_wafv2_web_acl.web_acl]
 }
