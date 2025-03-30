@@ -5,9 +5,9 @@ def lambda_handler(event, context):
     try:
         endpoint = '14.225.210.134'
         username = 'root'
-        password = 'swinburnemexer'
-        database_name = 'mexer'
-        port = 3306  # Use an integer for the port
+        password = 'thegatekeeper'
+        database_name = 'users'
+        port = 3307  # Use an integer for the port
 
         # Attempt to connect to the database
         connection = pymysql.connect(
