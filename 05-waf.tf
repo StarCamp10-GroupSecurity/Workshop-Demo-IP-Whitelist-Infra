@@ -4,7 +4,7 @@ resource "aws_wafv2_ip_set" "demo_whitelist_set" {
   description        = "IP set that in the Whitelisting list"
   scope              = "CLOUDFRONT"
   ip_address_version = "IPV4"
-  addresses          = ["45.122.250.34/32", "167.103.62.200/32"]
+  addresses          = ["45.122.250.34/32", "167.103.62.167/32"]
 
   tags = {
     Name = "Whitelist Set"
