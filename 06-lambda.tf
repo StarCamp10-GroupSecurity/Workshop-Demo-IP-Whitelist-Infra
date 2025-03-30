@@ -44,7 +44,7 @@ resource "aws_iam_role_policy_attachment" "lambda_logging" {
 }
 
 resource "aws_lambda_function" "my_lambda" {
-    function_name = "my_lambda_function"
+    function_name = "workshop_serverless_backend"
     handler       = "lambda_function.lambda_handler"
     runtime       = "python3.10"
 
