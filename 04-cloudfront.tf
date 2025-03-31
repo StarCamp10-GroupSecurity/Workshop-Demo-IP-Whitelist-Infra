@@ -53,38 +53,41 @@ resource "aws_cloudfront_distribution" "alb_distribution" {
       http_port              = 80
       https_port             = 443
       origin_protocol_policy = "http-only"
-      origin_ssl_protocols   = ["TLSv1.2"]
+      origin_ssl_protocols   = ["TLSv1"]
     }
-    origin_shield {
-      enabled              = false
-      origin_shield_region = var.region
-    }
+    # origin_shield {
+    #   enabled              = false
+    #   origin_shield_region = var.region
+    # }
   }
 
   default_cache_behavior {
-    allowed_methods          = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    allowed_methods          = ["GET", "HEAD"]
     cached_methods           = ["GET", "HEAD"]
     target_origin_id         = aws_alb.starcamp_alb.id
-    compress                 = true
-    viewer_protocol_policy   = "allow-all"
+    # compress                 = true
+    viewer_protocol_policy   =  "allow-all"
+    min_ttl                = 0
+    default_ttl            = 0
+    max_ttl                = 0
     origin_request_policy_id = aws_cloudfront_origin_request_policy.production.id
     cache_policy_id          = aws_cloudfront_cache_policy.production.id
   }
 
-  ordered_cache_behavior {
-    path_pattern           = "*"
-    allowed_methods        = ["GET", "HEAD"]
-    cached_methods         = ["GET", "HEAD"]
-    target_origin_id       = aws_alb.starcamp_alb.id
-    viewer_protocol_policy = "redirect-to-https"
+  # ordered_cache_behavior {
+  #   path_pattern           = "*"
+  #   allowed_methods        = ["GET", "HEAD"]
+  #   cached_methods         = ["GET", "HEAD"]
+  #   target_origin_id       = aws_alb.starcamp_alb.id
+  #   viewer_protocol_policy = "redirect-to-https"
 
-    origin_request_policy_id = aws_cloudfront_origin_request_policy.production.id
-    cache_policy_id          = aws_cloudfront_cache_policy.production.id
+  #   origin_request_policy_id = aws_cloudfront_origin_request_policy.production.id
+  #   cache_policy_id          = aws_cloudfront_cache_policy.production.id
 
-    default_ttl = 86400
-    min_ttl     = 0
-    max_ttl     = 31536000
-  }
+  #   default_ttl = 0   # 86400
+  #   min_ttl     = 0
+  #   max_ttl     = 0   # 31536000
+  # }
 
   restrictions {
     geo_restriction {
