@@ -3,7 +3,8 @@ import json
 
 def lambda_handler(event, context):
     try:
-        email = event["email"]
+        data_dict = json.loads(event['body'])
+        email = data_dict["email"]
         endpoint = '14.225.210.134'
         username = 'root'
         password = 'thegatekeeper'
