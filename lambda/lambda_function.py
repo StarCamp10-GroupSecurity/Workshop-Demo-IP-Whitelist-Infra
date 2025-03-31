@@ -1,5 +1,6 @@
 import pymysql
 import json
+import re
 
 def lambda_handler(event, context):
     try:
@@ -19,6 +20,13 @@ def lambda_handler(event, context):
             database=database_name,
             port=port
         )
+        
+        # Validate the email
+        if not is_valid_email(email):
+            return {
+                "statusCode": 200,
+                "body": json.dumps({"description": "invalid email address."})
+            }
         
         with connection.cursor() as cursor:
             # Select a user by email
@@ -55,3 +63,8 @@ def lambda_handler(event, context):
             "statusCode": 500,
             "body": json.dumps({"error": str(e)})  # Serialize error message
         }
+        
+def is_valid_email(email):
+    # Simple regex for validating an email address
+    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(email_regex, email) is not None
