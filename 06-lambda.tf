@@ -53,3 +53,8 @@ resource "aws_lambda_function" "my_lambda" {
 
     source_code_hash = filebase64sha256("lambda_function.zip")
 }
+
+resource "aws_lambda_function_url" "test_latest" {
+  function_name      = aws_lambda_function.my_lambda.function_name
+  authorization_type = "NONE"
+}
