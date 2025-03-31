@@ -30,7 +30,9 @@ def lambda_handler(event, context):
             if not result:
                 return {
                     "statusCode": 200,
-                    "body": json.dumps("This email does not exist")
+                    "body": json.dumps({
+                        "description": "This email does not exist"
+                    })
                 }
             # Print the results
             description = None
@@ -42,9 +44,11 @@ def lambda_handler(event, context):
         connection.close()
         
         return {
-            "statusCode": 200,
-            "body": json.dumps(f"{description}")
-        }
+                "statusCode": 200,
+                "body": json.dumps({
+                    "description": description
+                })
+            }
     
     except Exception as e:
         return {
