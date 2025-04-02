@@ -46,7 +46,7 @@ variable "ec2_name" {
 variable "ec2_instance_type" {
   description = "Type of the EC2 instance"
   type        = string
-  default     = "t2.micro"
+  default     = "t2.medium"
 }
 
 variable "ec2_key_name" {
@@ -59,4 +59,10 @@ variable "ec2_ami" {
   description = "AMI ID for EC2"
   type        = string
   default     = "ami-005fc0f236362e99f" // Ubuntu 22.04 by default
+}
+
+variable "allow_ip_addresses" {
+  description = "List of IP Addresses"
+  type        = list(string)
+  default     = ["171.232.58.215/32", "45.122.250.34/32"]
 }

@@ -62,14 +62,14 @@ resource "aws_cloudfront_distribution" "alb_distribution" {
   }
 
   default_cache_behavior {
-    allowed_methods          = ["GET", "HEAD"]
-    cached_methods           = ["GET", "HEAD"]
-    target_origin_id         = aws_alb.starcamp_alb.id
+    allowed_methods  = ["GET", "HEAD"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = aws_alb.starcamp_alb.id
     # compress                 = true
-    viewer_protocol_policy   =  "allow-all"
-    min_ttl                = 0
-    default_ttl            = 0
-    max_ttl                = 0
+    viewer_protocol_policy   = "redirect-to-https"
+    min_ttl                  = 0
+    default_ttl              = 0
+    max_ttl                  = 0
     origin_request_policy_id = aws_cloudfront_origin_request_policy.production.id
     cache_policy_id          = aws_cloudfront_cache_policy.production.id
   }

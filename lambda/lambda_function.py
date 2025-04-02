@@ -25,7 +25,13 @@ def lambda_handler(event, context):
         if not is_valid_email(email):
             return {
                 "statusCode": 200,
-                "body": json.dumps({"description": "invalid email address."})
+                "body": json.dumps({"description": "invalid email address."}),
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",  # Allow all origins or specify your domain
+                    "Access-Control-Allow-Methods": "OPTIONS, POST, GET",  # Allowed methods
+                    "Access-Control-Allow-Headers": "Content-Type"  # Allowed headers
+                }
             }
         
         with connection.cursor() as cursor:
@@ -40,7 +46,13 @@ def lambda_handler(event, context):
                     "statusCode": 200,
                     "body": json.dumps({
                         "description": "This email does not exist"
-                    })
+                    }),
+                    "headers": {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*",  # Allow all origins or specify your domain
+                        "Access-Control-Allow-Methods": "OPTIONS, POST, GET",  # Allowed methods
+                        "Access-Control-Allow-Headers": "Content-Type"  # Allowed headers
+                    }
                 }
             # Print the results
             description = None
@@ -55,7 +67,13 @@ def lambda_handler(event, context):
                 "statusCode": 200,
                 "body": json.dumps({
                     "description": description
-                })
+                }),
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",  # Allow all origins or specify your domain
+                    "Access-Control-Allow-Methods": "OPTIONS, POST, GET",  # Allowed methods
+                    "Access-Control-Allow-Headers": "Content-Type"  # Allowed headers
+                }
             }
     
     except Exception as e:
