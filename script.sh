@@ -18,3 +18,4 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 sudo usermod -aG docker ubuntu
 
 # sudo systemctl enable nginx
+sudo systemctl enable nginx
