@@ -88,3 +88,8 @@ resource "aws_api_gateway_method_response" "cors_method_response" {
     "method.response.header.Access-Control-Allow-Origin"  = true
   }
 }
+
+resource "aws_wafv2_web_acl_association" "example" {
+  resource_arn = "arn:aws:apigateway:us-east-1::/restapis/vpqyb19tmb/stages/production"
+  web_acl_arn  = aws_wafv2_web_acl.web_acl_api.arn
+}
