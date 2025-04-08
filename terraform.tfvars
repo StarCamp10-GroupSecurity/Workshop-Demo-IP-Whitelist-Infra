@@ -1,1 +1,1 @@
-allow_ip_addresses=[]
+allow_ip_addresses=["45.122.250.35/32", "45.122.250.35/32"]
