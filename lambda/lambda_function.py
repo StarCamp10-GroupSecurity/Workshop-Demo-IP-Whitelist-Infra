@@ -45,7 +45,7 @@ def lambda_handler(event, context):
                 return {
                     "statusCode": 200,
                     "body": json.dumps({
-                        "description": "This email does not exist"
+                        "description": "Hey there! So we haven't really formed any specific impression about you yet... mostly because we've been as social as potted plants! Total shame we haven't chatted much or hung out - let's do more in the future. Wishing you a cheerful day and a wild adventure at NAB!"
                     }),
                     "headers": {
                         "Content-Type": "application/json",
