@@ -17,5 +17,23 @@ sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker ubuntu
 
-# sudo systemctl enable nginx
-sudo systemctl enable nginx
+sudo docker pull heyyytamvo/starcamp:latest
+sudo docker run -d -p 8080:80 heyyytamvo/starcamp:latest
+
+# Fix Nginx
+sudo rm /etc/nginx/sites-enabled/default
+sudo tee /etc/nginx/sites-enabled/default > /dev/null << 'EOF'
+server {
+        listen 80;
+        server_name _;
+ 
+        location / {
+                proxy_pass http://localhost:8080; 
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header Host $http_host;
+                proxy_redirect off;
+        }
+}
+EOF
+sudo systemctl reload nginx
